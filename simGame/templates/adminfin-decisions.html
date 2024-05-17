@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<h3>Supply decisions</h3>
+{{user.username}}
+
+<p>{{company.name}} -- {{company.id}}</p>
+
+<p>{{game.name}} {{game.host}} {{game.month}}</p>
+
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h3>Savings Account</h3>
+        <p>
+        <label>Savings Investment:</label>
+        <input type="text" name="savings-investment" placeholder="{{company.savingsInvestment}}" />
+
+        <label>Savings Withdrawal:</label>
+        <input type="text" name="savings-withdrawal" placeholder="{{company.savingsWithdrawal}}" />
+
+
+
+
+        <h3>Insurrance Subscriptions</h3>
+        <p>
+            <p>TODO</p>
+        <input type="submit" value="Save decisions" />
+    </form>
+</div>
+
+{% endblock content %}

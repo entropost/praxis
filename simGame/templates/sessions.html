@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+{% block content %}
+
+{% if page == "allGames" %}
+
+
+<h3>All Joinable Sessions</h3>
+<div>
+    <ul>
+{% for simgame in games %}
+
+<div> 
+
+<ul><a href="{% url 'join-session' simgame.id %}">{{simgame.name}} -- {{simgame.host}} </a></ul>
+
+
+</div>
+
+{% endfor %}
+</ul>
+</div>
+
+
+
+{% else %}
+
+<div>
+    <ul>
+{% for company in companies %}
+
+<div> 
+
+<ul><a href="{% url 'play-simgame' company.simgame.id %}">{{company.simgame.name}} -- {{company.simgame.host}} -- {{company.name}}</a></ul>
+
+
+</div>
+
+{% endfor %}
+</ul>
+</div>
+
+{% endif %}
+
+{% endblock content %}

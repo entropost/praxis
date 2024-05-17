@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% if message is None %}
+
+{% else %}
+<p>{{message}}</p>
+
+{% endif %}
+
+
+<h3>Join {{session.name}} </h3>
+<h3>Duration in months: {{session.duration}}</h3>
+
+<div><h2>Remaining spots: {{remaining}} out of total of {{maxplayers}}.</h2></div>
+<div>
+    <ul> <p>Players playing this session</p>
+        {% for candidate in candidates %}
+        <li>{{candidate.owner}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% if flag %}
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <label>Company's name:</label>
+        <input type="text" name="company-name" placeholder="{{request.user}}'s company" />
+
+        <input type="submit" value="joinSession" />
+    </form>
+</div>
+{% else %}
+
+<div><p>You're already registered in this session</p></div>
+
+{% endif %}
+{% endblock content %}
+

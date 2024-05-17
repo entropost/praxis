@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    <h3>
+        {{company}} 
+    </h3>
+    <p>Month: {{company.simgame.month}}</p>
+    <p>Sales of Peche 4.4 {{company.salesP1}}</p>
+</div>
+
+<div>
+    <ul>
+        <li><a href="{% url 'marketing-decisions' game.id %}"> Marketing Decisions</a></li>
+        <li><a href="{% url 'production-decisions' game.id %}"> Production Decisions</a></li>
+        <li><a href="{% url 'supply-decisions' game.id %}"> Supply Decisions</a></li>
+        <li><a href="{% url 'adminfin-decisions' game.id %}"> Administrative & Financial Decisions</a></li>
+    </ul>
+</div>
+
+{% endblock content %}

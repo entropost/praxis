@@ -1,0 +1,11 @@
+{% include "navbar.html" %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<div><h3><a href="{% url 'my-sessions' %}">My sessions</a></h3></div>
+<div><h3><a href="{% url 'view-sessions' %}">Join sessions</a></h3></div>
+
+{% endif %}
+
+{% endblock content %}

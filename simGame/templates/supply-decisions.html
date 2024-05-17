@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<h3>Supply decisions</h3>
+{{user.username}}
+
+<p>{{company.name}} -- {{company.id}}</p>
+
+<p>{{game.name}} {{game.host}} {{game.month}}</p>
+
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h3>Plastic</h3>
+        <p>
+        <label>Plas1:</label>
+        <input type="text" name="plas1" placeholder="{{company.comPlastic1}}" />
+
+        <label>Plas2:</label>
+        <input type="text" name="plas2" placeholder="{{company.comPlastic2}}" />
+
+        <label>Plas3:</label>
+        <input type="text" name="plas3" placeholder="{{company.comPlastic3}}" />
+        </p>
+
+
+        <h3>Wood</h3>
+        <p>
+            <label>Wood1:</label>
+            <input type="text" name="wood1" placeholder="{{company.comWood1}}" />
+    
+            <label>Wood2:</label>
+            <input type="text" name="wood2" placeholder="{{company.comWood2}}" />
+    
+            <label>Wood3:</label>
+            <input type="text" name="wood3" placeholder="{{company.comWood3}}" />
+            </p>
+        <input type="submit" value="Save decisions" />
+    </form>
+</div>
+
+{% endblock content %}

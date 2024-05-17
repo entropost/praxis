@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div>
+    <h3>Create a new session</h3>    
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <label>Duration in months:</label>
+        <input type="text" name="gameDuration" placeholder="Enter the game duration in months" />
+
+        <label>Number of Players:</label>
+        <input type="text" name="numberOfPlayers" placeholder="Enter the number of players" />
+
+        <input type="submit" value="Create a new Game" />
+    </form>
+
+
+
+{% endblock content %}

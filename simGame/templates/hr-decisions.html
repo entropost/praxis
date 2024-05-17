@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<h3>HR decisions</h3>
+{{user.username}}
+
+<p>{{company.name}} -- {{company.id}}</p>
+
+<p>{{game.name}} {{game.host}} {{game.month}}</p>
+
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+         {{form.as_p}}
+
+
+
+
+        <h3>Insurrance Subscriptions</h3>
+        <p>
+            <p>TODO</p>
+        <input type="submit" value="Save decisions" />
+    </form>
+</div>
+
+
+
+{% endblock content %}
