@@ -1,8 +1,8 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
 
 
 {% block content %}
-
+<main id="main" class="main">
 <h3>Supply decisions</h3>
 {{user.username}}
 
@@ -12,24 +12,81 @@
 
 
 <div>
+    <div class="col-lg-10">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Advanced Form Elements</h5>
     <form method="POST" action="">
+        <!-- <div class="row mb-5"> -->
         {% csrf_token %}
         <h3>Savings Account</h3>
-        <p>
-        <label>Savings Investment:</label>
-        <input type="text" name="savings-investment" placeholder="{{company.savingsInvestment}}" />
+        <table class="table table-striped ">
+            <thead>
+              <tr >
+                <th  scope="col"></th>
+                <th scope="col"></th>
 
-        <label>Savings Withdrawal:</label>
-        <input type="text" name="savings-withdrawal" placeholder="{{company.savingsWithdrawal}}" />
+              </tr>
+            </thead>
+            <tbody>
+                <tr class="table-info">
+                  <!-- <th scope="row">1</th> -->
+                  <td>Initial Balance</td>
+                  <td>$0.00</td>
+
+                </tr>
+                <tr>
+                    <td>Savings Investment</td>
+                    <td class="col-3">
+                        <div class="input-group col-sm-6">
+                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <input type="number" step="any" min="0" name="savings-investment" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.savingsInvestment}}">
+                        
+                          </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Interest Rate</td>
+                    <td>2.4%</td>
+                </tr>
+
+                <tr>
+                    <td>Savings Withdrawal</td>
+                    <td class="col-3">
+                        <div class="input-group col-sm-6">
+                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <input type="number" step="any" min="0" name="savings-withdrawal" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.savingsWithdrawal}}">
+                        
+                          </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Rate type</td>
+                    <td>Proportional</td>
+                </tr>
+
+                <tr>
+                    <td>New Balance</td>
+                    <td>$0</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    
 
 
 
-
-        <h3>Insurrance Subscriptions</h3>
+        <h3>Insurance Subscriptions</h3>
         <p>
             <p>TODO</p>
         <input type="submit" value="Save decisions" />
+        </div>
     </form>
+   
+    </div>
+    </div>
 </div>
-
+</main>
 {% endblock content %}

@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+<h3>Production decisions</h3>
+{{user.username}}
+
+<p>{{company.name}} -- {{company.id}}</p>
+
+<p>{{game.name}} {{game.host}} {{game.month}}</p>
+
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h3>Production orders for this month</h3>
+        <p>
+        <label>P1:</label>
+        <input type="text" name="prod-P1" placeholder="{{company.prodOrderP1}}" />
+
+        <label>P2:</label>
+        <input type="text" name="prod-P2" placeholder="{{company.prodOrderP2}}" />
+
+        <label>P3:</label>
+        <input type="text" name="prod-P3" placeholder="{{company.prodOrderP3}}" />
+        </p>
+
+        <h2>Investments</h2>
+        <h3>Full ownership acquisitions or transfers</h3>
+        <p>
+            <div>Moulage</div>
+            <label>Full ownership acquisitions:</label>
+            <input type="text" name="acq-moulage" placeholder="{{company.acqMoul}}" />
+            <label>Transfers:</label>
+            <input type="text" name="ces-moulage" placeholder="{{company.cesMoul}}" />
+        
+        </p>
+        <p>
+            <div>Finition</div>
+            <label>Full ownership acquisitions:</label>
+            <input type="text" name="acq-finition" placeholder="{{company.acqFin}}" />
+            <label>Transfers:</label>
+            <input type="text" name="ces-finition" placeholder="{{company.cesFin}}" />
+        
+        </p>
+        <h3>Leasing</h3>
+        <p>
+            <div>Moulage</div>
+            <label>New Leasing Contract:</label>
+            <input type="text" name="leasing-moulage" placeholder="{{company.newLeasingMoul}}" />
+        
+        </p>
+        <p>
+            <div>Finition</div>
+            <label>new Leasing Contract:</label>
+            <input type="text" name="leasing-finition" placeholder="{{company.newLeasingFin}}" />
+
+        
+        </p>
+
+
+        <input type="submit" value="Save decisions" />
+    </form>
+</div>
+
+{% endblock content %}

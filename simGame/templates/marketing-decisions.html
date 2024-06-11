@@ -1,50 +1,172 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
 
 
 {% block content %}
+<main id="main" class="main">
+    <h3>Marketing decisions</h3>
+    {{user.username}}
+    
+    <p>{{company.name}} -- {{company.id}}</p>
+    
+    <p>{{game.name}} {{game.host}} {{game.month}}</p>
+    
+    
+    <div>
+        <div class="col-lg-10">
+    
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Marketing Decisions</h5>
+        <form method="POST" action="">
+            <!-- <div class="row mb-5"> -->
+            {% csrf_token %}
+            <h3>Prices</h3>
+            <table class="table table-striped">
+                <thead>
+                  <tr >
+                    <th  scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Variation</th>
+    
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-9">P1</td>
+                      <td class="col-3">
+                        <div class="input-group col-sm-6">
+                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <input type="number" step="any" min="0" name="price-P1" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.priceP1}}">
+                        
+                          </div>
+                    </td>
+                      <td>0.00%</td>
+    
+                    </tr>
+                    <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td>P2</td>
+                        <td class="col-3">
+                          <div class="input-group col-sm-6">
+                              <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                              <input type="number" step="any" min="0" name="price-P2" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.priceP2}}">
+                          
+                            </div>
+                      </td>
+                        <td>0.00%</td>
+      
+                      </tr>
+                      <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td>P3</td>
+                        <td class="col-3">
+                          <div class="input-group col-sm-6">
+                              <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                              <input type="number" step="any" min="0" name="price-P3" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.priceP3}}">
+                          
+                            </div>
+                      </td>
+                        <td>0.00%</td>
+      
+                      </tr>
+                    
+                </tbody>
+            </table>
+            
+        
+    
+    
+    
+            <h3>Brand Publicity</h3>
+            <table class="table table-striped">
+                <thead>
+                  <tr >
+                    <th  scope="col"></th>
+                    <th scope="col">Monthly Budget</th>
+                    <th scope="col">Primary Communication Axis</th>
+                    <th scope="col">Accessory Communication Axis</th>
+    
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td>Brand Publicity</td>
+                      <td class="col-3">
+                        <div class="input-group col-sm-6">
+                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <input type="number" step="any" min="0" name="brand-pub" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.pubBrand}}">
+                        
+                          </div>
+                    </td>
+                      <td>Aesthetics</td>
+                    <td>Confort</td>
+                    </tr>
 
-<h3>Marketing decisions</h3>
-{{user.username}}
-
-<p>{{company.name}} -- {{company.id}} </p>
-
-<p>{{game.name}} {{game.host}} {{game.month}}</p>
-
-
-<div>
-    <form method="POST" action="">
-        {% csrf_token %}
-        <h3>Prices</h3>
-        <p>
-        <label>Selling Price of P1:</label>
-        <input type="text" name="price-P1" placeholder="$ {{company.priceP1}}" />
-
-        <label>Selling Price of P2:</label>
-        <input type="text" name="price-P2" placeholder="$ {{company.priceP2}}" />
-
-        <label>Selling Price of P3:</label>
-        <input type="text" name="price-P3" placeholder="$ {{company.priceP3}}" />
-        </p>
-
-        <h3>Brand Publicity</h3>
-        <p>
-        <label>Brand Publicity Budget:</label>
-        <input type="text" name="brand-pub" placeholder="$ {{company.pubBrand}}" />
-        </p>
-
-        <h3>Products Publicity</h3>
-        <p>
-        <label>P1:</label>
-        <input type="text" name="pub-P1" placeholder="$ {{company.pubP1}}" />
-
-        <label>P2:</label>
-        <input type="text" name="pub-P2" placeholder="$ {{company.pubP2}}" />
-
-        <label>P3:</label>
-        <input type="text" name="pub-P3" placeholder="$ {{company.pubP3}}" />
-        </p>
-        <input type="submit" value="Save decisions" />
-    </form>
-</div>
+                    
+                </tbody>
+            </table>
+            <h3>Products Publicity</h3>
+            <table class="table table-striped">
+                <thead>
+                  <tr >
+                    <th  scope="col">Product</th>
+                    <th scope="col">Monthly Budget</th>
+                    <th scope="col">Evaluation</th>
+    
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-9">P1</td>
+                      <td class="col-lg-3">
+                        <div class="input-group col-sm-6">
+                            <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                            <input type="number" step="any" min="0" name="pub-P1" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.pubP1}}">
+                        
+                          </div>
+                    </td>
+                      <td class="col-3">5</td>
+    
+                    </tr>
+                    <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td>P2</td>
+                        <td class="col-3">
+                          <div class="input-group col-sm-6">
+                              <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                              <input type="number" step="any" min="0" name="pub-P2" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.pubP2}}">
+                          
+                            </div>
+                      </td>
+                        <td>5</td>
+      
+                      </tr>
+                      <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td>P3</td>
+                        <td class="col-3">
+                          <div class="input-group col-sm-6">
+                              <div class="input-group-prepend"><span class="input-group-text">$</span></div>
+                              <input type="number" step="any" min="0" name="pub-P3" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.pubP3}}">
+                          
+                            </div>
+                      </td>
+                        <td>3</td>
+      
+                      </tr>
+                    
+                </tbody>
+            </table>
+            <input type="submit" value="Save decisions" />
+            </div>
+        </form>
+       
+        </div>
+        </div>
+    </div>
+    </main>
 
 {% endblock content %}

@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import simGame, Company
+from .models import simGame, Company, Market, CommonComponent, UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .forms import HrForm
+from .helpers import simulateSales, constructNewCompanies, simulateNewMarket
 
 # Create your views here.
-
+def monthToString(month):
+    months = ['December', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    return 'Y' + str((month - 1)//12) + ' ' + months[month % 12]
 
 def registerPage(request):
     form = UserCreationForm()
@@ -18,6 +21,8 @@ def registerPage(request):
             user = form.save(commit= False)
             user.username = user.username.lower()
             user.save()
+            userProfile = UserProfile(user=user, experience=0, level=1, elo=800)
+            userProfile.save()
             login(request, user)
             return redirect('index')
 
@@ -29,14 +34,61 @@ def mysimgames(request):
     return render(request, 'sessions.html', {'companies':allCompanies})
 
 def index(request):
-    return render(request, 'main.html')
+    return render(request, 'base.html')
 
 @login_required(login_url='login')
 def playSimGame(request, pk):
+    if request.method == 'POST':
+        game = simGame.objects.get(pk=pk)
+        companies = Company.objects.filter(simgame=game, month = game.month)
+        oldCompanies = Company.objects.filter(simgame=game, month = game.month - 1)
+        market = Market.objects.filter(simgame=game, month= game.month)[0]
+        globalDemandPi = {'P1':market.globalDemandP1, 'P2':market.globalDemandP2, 'P3':market.globalDemandP3}
+        companies = simulateSales(companies, globalDemandPi, oldCompanies)
+        for company in companies:
+            company.save()
+        newCompanies = constructNewCompanies(companies)
+
+        for newCompany in newCompanies:
+            newCompany.save()
+            #print(newCompany.name, '   month:  ', newCompany.month)
+        game.month += 1
+        game.save()
+        marketHandler = CommonComponent.objects.get(simgame=game)
+        newMarket = simulateNewMarket(marketHandler)
+        newMarket.save()
+        print('Simulated')
+        print(companies[0].salesP1)
+        sgame = simGame.objects.get(id=pk)
+        player = request.user
+        company = Company.objects.filter(simgame = sgame, owner = player, month = sgame.month)[0]
+        context = {'company':company, 'game':sgame}
+        return redirect('play-simgame',pk)
+        #return render(request, 'play.html', context)
+        
     sgame = simGame.objects.get(id=pk)
     player = request.user
     company = Company.objects.filter(simgame = sgame, owner = player, month = sgame.month)[0]
-    context = {'company':company, 'game':sgame}
+    prevCompany = Company.objects.filter(simgame = sgame, owner = player, month = sgame.month - 1)[0]
+    prevSales = prevCompany.salesP1 + prevCompany.salesP2 + prevCompany.salesP3
+    prevRevenue = prevCompany.salesP1*prevCompany.priceP1 + prevCompany.salesP2*prevCompany.priceP2 + prevCompany.salesP3*prevCompany.salesP3
+    lastYearCompaniesSalesP1 = {}
+    lastYearCompaniesSalesP2 = {}
+    lastYearCompaniesSalesP3 = {}
+    months = {}
+    i = 0
+    for month in range(sgame.month - 12, sgame.month):
+        lastYearCompaniesSalesP1['month' + str(i)] = Company.objects.filter(simgame=sgame, owner=player, month=month)[0].salesP1
+        lastYearCompaniesSalesP2['month' + str(i)] = Company.objects.filter(simgame=sgame, owner=player, month=month)[0].salesP2
+        lastYearCompaniesSalesP3['month' + str(i)] = Company.objects.filter(simgame=sgame, owner=player, month=month)[0].salesP3
+        months['month' + str(i)] = monthToString(month=month)
+        i += 1
+        # lastYearCompaniesSalesP2.append(Company.objects.filter(simgame=sgame, owner=player, month=month)[0].salesP2)
+        # lastYearCompaniesSalesP3.append(Company.objects.filter(simgame=sgame, owner=player, month=month)[0].salesP3)
+    #lastYearCompany = Company.objects.filter(simgame=sgame, owner=player)
+    context = {'company':company, 'game':sgame, 'prevSales': prevSales, 'prevRevenue':prevRevenue, 'lastYearCompaniesSalesP1':lastYearCompaniesSalesP1, 'months':months,
+               'lastYearCompaniesSalesP2':lastYearCompaniesSalesP2,
+               'lastYearCompaniesSalesP3':lastYearCompaniesSalesP3, 'prevCompany':prevCompany}
     return render(request, 'play.html', context)
 
 def loginPage(request):

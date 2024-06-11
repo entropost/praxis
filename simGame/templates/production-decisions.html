@@ -1,67 +1,166 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
 
 
 {% block content %}
 
-<h3>Production decisions</h3>
-{{user.username}}
-
-<p>{{company.name}} -- {{company.id}}</p>
-
-<p>{{game.name}} {{game.host}} {{game.month}}</p>
-
-
-<div>
-    <form method="POST" action="">
-        {% csrf_token %}
-        <h3>Production orders for this month</h3>
-        <p>
-        <label>P1:</label>
-        <input type="text" name="prod-P1" placeholder="{{company.prodOrderP1}}" />
-
-        <label>P2:</label>
-        <input type="text" name="prod-P2" placeholder="{{company.prodOrderP2}}" />
-
-        <label>P3:</label>
-        <input type="text" name="prod-P3" placeholder="{{company.prodOrderP3}}" />
-        </p>
-
-        <h2>Investments</h2>
-        <h3>Full ownership acquisitions or transfers</h3>
-        <p>
-            <div>Moulage</div>
-            <label>Full ownership acquisitions:</label>
-            <input type="text" name="acq-moulage" placeholder="{{company.acqMoul}}" />
-            <label>Transfers:</label>
-            <input type="text" name="ces-moulage" placeholder="{{company.cesMoul}}" />
+<main id="main" class="main">
+    <h3>Production decisions</h3>
+    {{user.username}}
+    
+    <p>{{company.name}} -- {{company.id}}</p>
+    
+    <p>{{game.name}} {{game.host}} {{game.month}}</p>
+    
+    
+    <div>
+        <div class="col-lg-12">
+    
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Production Decisions</h5>
+        <form method="POST" action="">
+            <!-- <div class="row mb-5"> -->
+            {% csrf_token %}
+            <h3>Monthly Production Orders</h3>
+            <table class="table table-striped">
+                <thead>
+                  <tr >
+                    <th  scope="col">Product</th>
+                    <th scope="col">Existing Stock</th>
+                    <th scope="col">Minimal Monthly Production</th>
+                    <th scope="col">Monthly Production Orders</th>
+                    <th scope="col">New Stock</th>
+    
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">P1</td>
+                      <td>0</td>
+                      <td>12</td>
+                      <td class="col-3">
+                        <div class="input-group col-sm-6">
+                            
+                            <input type="number" min="0" name="prod-P1" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.prodOrderP1}}">
+                            <div class="input-group-append"><span class="input-group-text">units</span></div>
+                          </div>
+                    </td>
+                      <td>30</td>
+    
+                    </tr>
+                    <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td class="col-lg-3">P2</td>
+                        <td>0</td>
+                        <td>12</td>
+                        <td class="col-3">
+                          <div class="input-group col-sm-6">
+                              
+                              <input type="number"  min="0" name="prod-P2" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.prodOrderP2}}">
+                              <div class="input-group-append"><span class="input-group-text">units</span></div>
+                            </div>
+                      </td>
+                        <td>30</td>
+      
+                      </tr>
+                      <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td class="col-lg-3">P3</td>
+                        <td>0</td>
+                        <td>12</td>
+                        <td class="col-3">
+                          <div class="input-group col-sm-6">
+                              
+                              <input type="number"  min="0" name="prod-P3" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.prodOrderP3}}">
+                              <div class="input-group-append"><span class="input-group-text">units</span></div>
+                            </div>
+                      </td>
+                        <td>0</td>
+      
+                      </tr>
+                    
+                    
+                </tbody>
+            </table>
+            
+            <h2>Investments</h2>
+            <h3>Full ownership acquisitions or transfers</h3>
+            <table class="table table-striped">
+                <thead>
+                  <tr >
+                    <th  scope="col">Product</th>
+                    <th scope="col">Existing Parc</th>
+                    <th scope="col">Acquisitions</th>
+                    <th scope="col">Acquisition Cost</th>
+                    <th scope="col">Transfers</th>
+                    <th scope="col">Transfers Price</th>
+                    <th scope="col">New Parc</th>
+    
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Molding</td>
+                      <td class="col-2">3 machines</td>
+                      <td class="col-1.5">
+                        <div class="input-group col-sm-6">
+                            
+                            <input type="number" min="0" name="acq-moulage" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.acqMoul}}">
+                            <div class="input-group-append"><span class="input-group-text">units</span></div>
+                          </div>
+                    </td>
+                      <td class="col-1.5">$100,000.00</td>
+                      <td class="col-3.5">
+                        <div class="input-group ">
+                            
+                            <input type="number" min="0" name="ces-moulage" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.cesMoul}}">
+                            <div class="input-group-append"><span class="input-group-text">units</span></div>
+                          </div>
+                    </td>
+                    <td>$16,000.00</td>
+                    <td>3</td>
+                    </tr>
+                    <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td class="col-lg-3">Finishing</td>
+                        <td class="col-2">5 machines</td>
+                        <td class="col-1.5">
+                          <div class="input-group col-sm-6">
+                              
+                              <input type="number" min="0" name="acq-finition" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.acqFin}}">
+                              <div class="input-group-append"><span class="input-group-text">units</span></div>
+                            </div>
+                      </td>
+                        <td class="col-1.5">$100,000.00</td>
+                        <td class="col-3.5">
+                          <div class="input-group ">
+                              
+                              <input type="number" min="0" name="ces-finition" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.cesFin}}">
+                              <div class="input-group-append"><span class="input-group-text">units</span></div>
+                            </div>
+                      </td>
+                      <td>$16,000.00</td>
+                      <td>3</td>
+                      </tr>
+                    
+                    
+                </tbody>
+            </table>
         
-        </p>
-        <p>
-            <div>Finition</div>
-            <label>Full ownership acquisitions:</label>
-            <input type="text" name="acq-finition" placeholder="{{company.acqFin}}" />
-            <label>Transfers:</label>
-            <input type="text" name="ces-finition" placeholder="{{company.cesFin}}" />
-        
-        </p>
-        <h3>Leasing</h3>
-        <p>
-            <div>Moulage</div>
-            <label>New Leasing Contract:</label>
-            <input type="text" name="leasing-moulage" placeholder="{{company.newLeasingMoul}}" />
-        
-        </p>
-        <p>
-            <div>Finition</div>
-            <label>new Leasing Contract:</label>
-            <input type="text" name="leasing-finition" placeholder="{{company.newLeasingFin}}" />
-
-        
-        </p>
-
-
-        <input type="submit" value="Save decisions" />
-    </form>
-</div>
+    
+    
+    
+            
+         
+            <input type="submit" value="Save decisions" />
+            </div>
+        </form>
+       
+        </div>
+        </div>
+    </div>
+    </main>
 
 {% endblock content %}

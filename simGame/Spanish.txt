@@ -20,7 +20,7 @@ Si, si sigo asi...
 
 
 
-Sentir
+
 
 Sentirse/Encontrarse     + adjetivo/adverbio
 
@@ -31,9 +31,9 @@ Me encuentro
 
 
 
-la vista -- ver
-el olfato -- oler
-el tacto -- tocar
+la vista -- ver   - ojo
+el olfato -- oler -
+el tacto -- tocar -- mano
 el gusto -- gustar
 el oido -- oir
 

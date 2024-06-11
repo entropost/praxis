@@ -1,22 +1,205 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
 
 {% block content %}
+<main id="main" class="main">
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-xxl-4 col-md-6">
+                <div class="card info-card sales-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Sales <span>| Previous Month</span></h5>
+      
+                        <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-cart"></i>
+                          </div>
+                          <div class="ps-3">
+                            <h6>{{ prevSales }}</h6>
+                            {%if prevCompany.salesVariations < 0 %}
+                            <span class="text-danger small pt-1 fw-bold">{{prevCompany.salesVariations}}%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                            {% else %}
+                            <span class="text-success small pt-1 fw-bold">{{prevCompany.salesVariations}}%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="col-xxl-4 col-md-6">
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Revenue <span>| Previous Month</span></h5>
+      
+                        <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-currency-dollar"></i>
+                          </div>
+                          <div class="ps-3">
+                            <h6>${{prevRevenue}}</h6>
+                            {% if prevCompany.revenueVariations >= 0 %}
+                            <span class="text-success small pt-1 fw-bold">{{prevCompany.revenueVariations}}%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                            {% else %}
+                            <span class="text-danger small pt-1 fw-bold">{{prevCompany.revenueVariations}}%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
 
-<div>
+            <div class="col-xxl-4 col-xl-12">
+
+                <div class="card info-card customers-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Market Part <span>| Previous Month</span></h5>
+      
+                        <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-people"></i>
+                          </div>
+                          <div class="ps-3">
+                            <h6>{{prevCompany.marketPartGlob}}%</h6>
+                            {% if prevCompany.marketPartVar < 0 %}
+                            <span class="text-danger small pt-1 fw-bold">{{prevCompany.marketPartVar}} points</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                            {% else %}
+                            <span class="text-success small pt-1 fw-bold">{{prevCompany.marketPartVar}} points</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                            {% endif %}
+                          </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REPORTS -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Reports <span>/Last 12 months</span></h5>
+
+                <!-- Line Chart -->
+                <div id="reportsChart"></div>
+
+                <script>
+                    var months = {{ months|safe }};
+                    var categories = Object.keys(months).map(function(key) {
+      return months[key];
+    });
+                  document.addEventListener("DOMContentLoaded", () => {
+                    new ApexCharts(document.querySelector("#reportsChart"), {
+                      series: [{
+                        name: 'Sales P1',
+                        data: [{{lastYearCompaniesSalesP1.month0}}, {{lastYearCompaniesSalesP1.month1}}, {{lastYearCompaniesSalesP1.month2}},
+                        {{lastYearCompaniesSalesP1.month3}}, {{lastYearCompaniesSalesP1.month4}}, {{lastYearCompaniesSalesP1.month5}}, {{lastYearCompaniesSalesP1.month6}},
+                        {{lastYearCompaniesSalesP1.month7}}, {{lastYearCompaniesSalesP1.month8}}, {{lastYearCompaniesSalesP1.month9}}, {{lastYearCompaniesSalesP1.month10}},
+                        {{lastYearCompaniesSalesP1.month11}}
+                        ],
+                      }, {
+                        name: 'Sales P2',
+                        data: [{{lastYearCompaniesSalesP2.month0}}, {{lastYearCompaniesSalesP2.month1}}, {{lastYearCompaniesSalesP2.month2}},
+                        {{lastYearCompaniesSalesP2.month3}}, {{lastYearCompaniesSalesP2.month4}}, {{lastYearCompaniesSalesP2.month5}}, {{lastYearCompaniesSalesP2.month6}},
+                        {{lastYearCompaniesSalesP2.month7}}, {{lastYearCompaniesSalesP2.month8}}, {{lastYearCompaniesSalesP2.month9}}, {{lastYearCompaniesSalesP2.month10}},
+                        {{lastYearCompaniesSalesP2.month11}}
+                        ],
+                      }, {
+                        name: 'Sales P3',
+                        data: [{{lastYearCompaniesSalesP3.month0}}, {{lastYearCompaniesSalesP3.month1}}, {{lastYearCompaniesSalesP3.month2}},
+                        {{lastYearCompaniesSalesP3.month3}}, {{lastYearCompaniesSalesP3.month4}}, {{lastYearCompaniesSalesP3.month5}}, {{lastYearCompaniesSalesP3.month6}},
+                        {{lastYearCompaniesSalesP3.month7}}, {{lastYearCompaniesSalesP3.month8}}, {{lastYearCompaniesSalesP3.month9}}, {{lastYearCompaniesSalesP3.month10}},
+                        {{lastYearCompaniesSalesP3.month11}}
+                        ],
+                      }],
+                      chart: {
+                        height: 350,
+                        type: 'area',
+                        toolbar: {
+                          show: false
+                        },
+                      },
+                      markers: {
+                        size: 4
+                      },
+                      colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                      fill: {
+                        type: "gradient",
+                        gradient: {
+                          shadeIntensity: 1,
+                          opacityFrom: 0.3,
+                          opacityTo: 0.4,
+                          stops: [0, 90, 100]
+                        }
+                      },
+                      dataLabels: {
+                        enabled: false
+                      },
+                      stroke: {
+                        curve: 'smooth',
+                        width: 2
+                      },
+                      xaxis: {
+
+                        categories: categories
+                      },
+                      
+                      
+                    }).render();
+                  });
+                </script>
+                <!-- End Line Chart -->
+
+              </div>
+
+            </div>
+          </div><!-- End Reports -->
+        </div>
+    </div>
+
+
+
+
+<!-- <div>
     <h3>
         {{company}} 
     </h3>
     <p>Month: {{company.simgame.month}}</p>
     <p>Sales of Peche 4.4 {{company.salesP1}}</p>
-</div>
+</div> -->
 
-<div>
+<!-- <div>
     <ul>
         <li><a href="{% url 'marketing-decisions' game.id %}"> Marketing Decisions</a></li>
         <li><a href="{% url 'production-decisions' game.id %}"> Production Decisions</a></li>
         <li><a href="{% url 'supply-decisions' game.id %}"> Supply Decisions</a></li>
         <li><a href="{% url 'adminfin-decisions' game.id %}"> Administrative & Financial Decisions</a></li>
     </ul>
+</div> -->
+<!-- 
+<div>
+    <h3>
+        {{company}} 
+    </h3>
+    <p>Month: {{company.simgame.month}}</p>
+    <p>Sales of Peche 4.4 {{company.salesP1}}</p>
+</div> -->
+
+{% if request.user != game.host %}
+<div>Simulate</div>
+
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h3>Simulate this month</h3>
+
+        <input type="submit" value="Simulate this month" />
+    </form>
 </div>
 
+
+
+{% else %}
+
+test1
+
+{% endif %} 
+</main>
 {% endblock content %}

@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
 
@@ -17,7 +17,7 @@
 <div>
     <ul> <p>Players playing this session</p>
         {% for candidate in candidates %}
-        <li>{{candidate.owner}}</li>
+        <li>{{candidate.owner}} -- {{candidate}}</li>
         {% endfor %}
     </ul>
 </div>

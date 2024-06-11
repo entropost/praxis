@@ -12,9 +12,14 @@ class simGame(models.Model):
     maxCompanies = models.IntegerField(null = True)
     duration = models.IntegerField(null = True)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 
 
 class CommonComponent(models.Model):
+    '''A class that handles many aspects of the game. Each time the game simulates a month and moves to the next one, this handler, determines the global demand for each product
+    using seasonal coefficients and phase factors.'''
     simgame = models.ForeignKey(simGame, on_delete = models.RESTRICT)
     #seasonal coefs
     seasonalCoefM1P1 = models.DecimalField(max_digits=4, decimal_places=2)
@@ -59,9 +64,12 @@ class CommonComponent(models.Model):
     initPhaseP1 = models.CharField(max_length=10)
     initPhaseP2 = models.CharField(max_length=10)
     initPhaseP3 = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-    #phasefactors = {'phase0':1,'phase1': 1, 'phase2':1,'phase3':1,'phase4':1}
-    #phaseDuration = {'phase0':1,'phase1': 1, 'phase2':1,'phase3':1,'phase4':1}
+
+    phasefactors = {'phase0':1,'phase1': 1.2, 'phase2':0.8,'phase3':1.05,'phase4':1.45}
+    phaseDuration = {'phase0':12,'phase1': 9, 'phase2':18,'phase3':24,'phase4':6}
 
 class Market(models.Model):
     month = models.IntegerField()
@@ -70,6 +78,8 @@ class Market(models.Model):
     globalDemandP1 = models.IntegerField()
     globalDemandP2 = models.IntegerField()
     globalDemandP3 = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class Company(models.Model):
     simgame = models.ForeignKey(simGame, on_delete = models.RESTRICT)
@@ -185,9 +195,52 @@ class Company(models.Model):
     salesP1 = models.IntegerField(null = True, blank = True)
     salesP2 = models.IntegerField(null = True, blank = True)
     salesP3 =  models.IntegerField(null = True, blank = True)
+    salesGlob = models.IntegerField(null = True, blank = True)
+
+    revenueP1 = models.DecimalField(max_digits=12, decimal_places=2, null = True, blank = True)
+    revenueP2 = models.DecimalField(max_digits=12, decimal_places=2, null = True, blank = True)
+    revenueP3 = models.DecimalField(max_digits=12, decimal_places=2, null = True, blank = True)
+    revenueGlob = models.DecimalField(max_digits=12, decimal_places=2, null = True, blank = True)
+
+    decisionsSaved = models.BooleanField(default=False)
+    is_simulated = models.BooleanField(default=False)
     
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-
+    revenueVariations = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    salesVariations = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    marketPartP1 = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    marketPartP2 = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    marketPartP3 = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    marketPartGlob = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    marketPartVar = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    
+    # Accounting fields
+    # Assets
+    intangibleAssets = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    land = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    constructions = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    machines = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    rawMaterials = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    finishedProducts = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    accountsReceivable = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    defferedTaxAssets = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    taxDeposit = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    savingsAccount = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    cash = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    # Equity
+    capital = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    legalReserves = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    optionalReserves = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    retainedEarnings = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    # Liabilities
+    riskProvisons = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    loans = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    accountsPayable = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    defferedTaxLiabilities = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    incomeTaxLiabilities = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    otherLiabilities = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
 
 
 
@@ -197,3 +250,5 @@ class UserProfile(models.Model):
     level = models.IntegerField(null=True)
     elo = models.IntegerField()
     #friends = models.ManyToManyField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

@@ -1,45 +1,142 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
 
 
 {% block content %}
-
-<h3>Supply decisions</h3>
-{{user.username}}
-
-<p>{{company.name}} -- {{company.id}}</p>
-
-<p>{{game.name}} {{game.host}} {{game.month}}</p>
-
-
-<div>
-    <form method="POST" action="">
-        {% csrf_token %}
-        <h3>Plastic</h3>
-        <p>
-        <label>Plas1:</label>
-        <input type="text" name="plas1" placeholder="{{company.comPlastic1}}" />
-
-        <label>Plas2:</label>
-        <input type="text" name="plas2" placeholder="{{company.comPlastic2}}" />
-
-        <label>Plas3:</label>
-        <input type="text" name="plas3" placeholder="{{company.comPlastic3}}" />
-        </p>
-
-
-        <h3>Wood</h3>
-        <p>
-            <label>Wood1:</label>
-            <input type="text" name="wood1" placeholder="{{company.comWood1}}" />
+<main id="main" class="main">
+    <h3>Supply decisions</h3>
+    {{user.username}}
     
-            <label>Wood2:</label>
-            <input type="text" name="wood2" placeholder="{{company.comWood2}}" />
+    <p>{{company.name}} -- {{company.id}}</p>
     
-            <label>Wood3:</label>
-            <input type="text" name="wood3" placeholder="{{company.comWood3}}" />
-            </p>
-        <input type="submit" value="Save decisions" />
-    </form>
-</div>
+    <p>{{game.name}} {{game.host}} {{game.month}}</p>
+    
+    
+    <div>
+        <div class="col-lg-12">
+    
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Supply Decisions</h5>
+        <form method="POST" action="">
+            <!-- <div class="row mb-5"> -->
+            {% csrf_token %}
+            <h3>Wood</h3>
+            <table class="table table-striped">
+                <thead>
+                  <tr >
+                    <th  scope="col">Supplier</th>
+                    <th scope="col">Monthly Ordered Quantity</th>
+
+    
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-9">Wood 1</td>
+                      <td class="col-3">
+                        <div class="input-group col-sm-6">
+                            
+                            <input type="number" min="0" name="wood1" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.comWood1}}">
+                            <div class="input-group-append"><span class="input-group-text">m^3</span></div>
+                          </div>
+                    </td>
+
+    
+                    </tr>
+                    <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td class="col-9">Wood 2</td>
+                        <td class="col-3">
+                          <div class="input-group col-sm-6">
+                              
+                              <input type="number" min="0" name="wood2" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.comWood2}}">
+                              <div class="input-group-append"><span class="input-group-text">m^3</span></div>
+                            </div>
+                      </td>
+      
+                      </tr>
+
+                      <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td class="col-9">Wood 3</td>
+                        <td class="col-3">
+                          <div class="input-group col-sm-6">
+                              
+                              <input type="number" min="0" name="wood3" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.comWood3}}">
+                              <div class="input-group-append"><span class="input-group-text">m^3</span></div>
+                            </div>
+                      </td>
+  
+      
+                      </tr>
+                </tbody>
+            </table>
+            
+            <h3>Plastic</h3>
+            <table class="table table-striped">
+                <thead>
+                  <tr >
+                    <th  scope="col">Supplier</th>
+                    <th scope="col">Monthly Ordered Quantity</th>
+
+    
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-9">Plas 1</td>
+                      <td class="col-3">
+                        <div class="input-group col-sm-6">
+                            
+                            <input type="number" min="0" name="plas1" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.comPlastic1}}">
+                            <div class="input-group-append"><span class="input-group-text">m^3</span></div>
+                          </div>
+                    </td>
+
+    
+                    </tr>
+                    <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td class="col-9">Plas 2</td>
+                        <td class="col-3">
+                          <div class="input-group col-sm-6">
+                              
+                              <input type="number" min="0" name="plas2" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.comPlastic2}}">
+                              <div class="input-group-append"><span class="input-group-text">m^3</span></div>
+                            </div>
+                      </td>
+      
+                      </tr>
+
+                      <tr>
+                        <!-- <th scope="row">1</th> -->
+                        <td class="col-9">Plas 3</td>
+                        <td class="col-3">
+                          <div class="input-group col-sm-6">
+                              
+                              <input type="number" min="0" name="plas3" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{company.comPlastic3}}">
+                              <div class="input-group-append"><span class="input-group-text">m^3</span></div>
+                            </div>
+                      </td>
+  
+      
+                      </tr>
+                </tbody>
+            </table>
+            
+        
+    
+    
+    
+            <input type="submit" value="Save decisions" />
+            </div>
+        </form>
+       
+        </div>
+        </div>
+    </div>
+    </main>
 
 {% endblock content %}
