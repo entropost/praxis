@@ -1,0 +1,287 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+<main id="main" class="main">
+    <h3>Production decisions</h3>
+    {{user.username}}
+    
+    <p>{{company.name}} -- {{company.id}}</p>
+    
+    <p>{{game.name}} {{game.host}} {{game.month}}</p>
+    
+    
+    <div>
+        <div class="col-lg-12">
+    
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Balance Sheet</h5>
+            <!-- <div class="row mb-5"> -->
+            {% csrf_token %}
+            <h3>Balance Sheet</h3>
+            <table class="table table-striped">
+                <thead>
+                  <tr >
+                    <th  scope="col">Asset</th>
+                    <th scope="col">Gross</th>
+                    <th scope="col">Amort & Dep</th>
+                    <th scope="col">Net {{timestamp}} </th>
+                    <th scope="col">Liability</th>
+                    <th scope="col">{{timestamp}}</th>
+    
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Intangible Assets</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0
+                    </td>
+                      <td>Capital</td>
+                      <td>1 000 000</td>
+    
+                    </tr>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Land</td>
+                      <td>1 000 000</td>
+                      <td></td>
+                      <td>1 000 000
+                    </td>
+                      <td>Legal Reserves</td>
+                      <td>100 000</td>
+    
+                    </tr>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Constructions</td>
+                      <td>1 500 000</td>
+                      <td>375 000</td>
+                      <td>1 125 000
+                    </td>
+                      <td>Facultative Reserves</td>
+                      <td>2 078 627.54</td>
+    
+                    </tr>
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Machines</td>
+                      <td>1 350 000</td>
+                      <td>157 500</td>
+                      <td>1 192 000</td>
+                    
+                      <td></td>
+                      <td></td>
+    
+                    </tr>
+                    
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Total Immobilized Assets</td>
+                      <td>3 855 000</td>
+                      <td>532 500</td>
+                      <td>3 322 500</td>
+                    
+                      <td>Total Equity</td>
+                      <td>3 178 627.54</td>
+    
+                    </tr>
+                    
+
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Material</td>
+                      <td>41 595.00</td>
+                      <td>0.00</td>
+                      <td>41 595.00</td>
+                    
+                      <td>Provisions for risk</td>
+                      <td>0.00</td>
+    
+                    </tr>
+                    
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">En-cours Alpha</td>
+                      <td>0.00</td>
+                      <td></td>
+                      <td>0.00</td>
+                    
+                      <td>Loan</td>
+                      <td>1 390 426.55</td>
+    
+                    </tr>
+                    
+
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">En-cours Beta</td>
+                      <td>0.00</td>
+                      <td></td>
+                      <td>0.00</td>
+                    
+                      <td>Free Loan</td>
+                      <td>0.00</td>
+    
+                    </tr>
+                    
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Finished Products</td>
+                      <td>79 918.73</td>
+                      <td>0.00</td>
+                      <td>79 918.73</td>
+                    
+                      <td>Accounts Payable</td>
+                      <td>301 200.00</td>
+    
+                    </tr>
+                    
+
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Accounts Receivable</td>
+                      <td>1 458 000.000</td>
+                      <td>0.00</td>
+                      <td>1 458 000.000</td>
+                    
+                      <td>Customers Debts</td>
+                      <td>0.00</td>
+    
+                    </tr>
+                    
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Deductible VAT</td>
+                      <td>164 210.91</td>
+                      <td></td>
+                      <td>164 210.91</td>
+                    
+                      <td>Collected VAT</td>
+                      <td>243 000.00</td>
+    
+                    </tr>
+
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Corporate Tax Down Payment</td>
+                      <td>100 000.00</td>
+                      <td></td>
+                      <td>100 000.00</td>
+                    
+                      <td>Corporate Tax</td>
+                      <td>366 209.18</td>
+    
+                    </tr>
+                    
+
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Shares</td>
+                      <td>245 580.00</td>
+                      <td></td>
+                      <td>245 580.00</td>
+                    
+                      <td>Dividends to pay</td>
+                      <td>0.00</td>
+    
+                    </tr>
+                    
+                    
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Bonds</td>
+                      <td>0.00</td>
+                      <td></td>
+                      <td>0.00</td>
+                    
+                      <td>Bank</td>
+                      <td>0.00</td>
+    
+                    </tr>
+                    
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Savings Account</td>
+                      <td>0.00</td>
+                      <td></td>
+                      <td>0.00</td>
+                    
+                      <td></td>
+                      <td></td>
+    
+                    </tr>
+                    
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Bank</td>
+                      <td>67 658.64</td>
+                      <td></td>
+                      <td>67 658.64</td>
+                    
+                      <td></td>
+                      <td></td>
+    
+                    </tr>
+
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Total Current Assets</td>
+                      <td>2 156 963.27</td>
+                      <td>0.00</td>
+                      <td>2 156 963.27</td>
+                    
+                      <td>Total Debts</td>
+                      <td>2 300 835.73</td>
+    
+                    </tr>
+                    
+                    
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-3">Total Assets</td>
+                      <td>6 011 963.27</td>
+                      <td>532 500.00</td>
+                      <td>5 479 463.27</td>
+                    
+                      <td>Total Liabilities</td>
+                      <td>5 479 463.27</td>
+    
+                    </tr>
+                    
+
+                </tbody>
+            </table>
+            
+           
+        
+    
+    
+    
+            
+
+            </div>
+        </form>
+       
+        </div>
+        </div>
+    </div>
+    </main>
+
+{% endblock content %}

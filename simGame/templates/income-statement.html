@@ -1,0 +1,95 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+<main id="main" class="main">
+    <h3>Income Statement</h3>
+    {{user.username}}
+    
+    <p>{{company.name}} -- {{company.id}}</p>
+    
+    <p>{{game.name}} {{game.host}} {{game.month}}</p>
+    
+    
+    <div>
+        <div class="col-lg-12">
+    
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Income Statement</h5>
+            <!-- <div class="row mb-5"> -->
+            {% csrf_token %}
+            <h3>Monthly Income Statement</h3>
+            <table class="table table-striped">
+                <thead>
+                  <tr >
+                    <th  scope="col">Operational Revenues</th>
+                    <th scope="col">{{timestamp}}</th>
+    
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-9">Competitive market sales revenue</td>
+                      <td>{{prevCompany.revenueGlob}}</td>
+                    </tr>
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-9">Negociated sales revenue</td>
+                      <td>0.00</td>
+                    </tr>
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-9">Net revenue</td>
+                      <td>{{prevCompany.revenueGlob}}</td>
+                    </tr>
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-9">Stocked production of en-cours & finished produce</td>
+                      <td>{{prevCompany.revenueGlob}}</td>
+                    </tr>
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-9">Recovery of amortizations, depreciations and provisions, transfers of charges</td>
+                      <td>{{prevCompany.revenueGlob}}</td>
+                    </tr>
+
+                    
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-9">Other revenues</td>
+                      <td>0.00</td>
+                    </tr>
+
+                    <tr>
+                      <!-- <th scope="row">1</th> -->
+                      <td class="col-lg-9">Total operational revenues</td>
+                      <td>{{prevCompany.revenueGlob}}</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+            
+           
+        
+    
+    
+    
+            
+
+            </div>
+        </form>
+       
+        </div>
+        </div>
+    </div>
+    </main>
+
+{% endblock content %}

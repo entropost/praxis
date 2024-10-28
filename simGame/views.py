@@ -8,6 +8,31 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import HrForm
 from .helpers import simulateSales, constructNewCompanies, simulateNewMarket
 
+
+def incomeStatement(request, pk):
+    user = request.user
+    game = simGame.objects.get(pk=pk)
+    company = Company.objects.filter(simgame=game, owner=user, month=game.month)[0]
+    prevCompany = Company.objects.filter(simgame=game, owner=user, month=game.month - 1)[0]
+    candidates = Company.objects.filter(simgame=game)
+    flag = request.user not in [candidate.owner for candidate in candidates]
+    timestamp = monthToString(game.month - 1)
+    context = {'user':user, 'game':game, 'company':company, 'timestamp':timestamp, 'prevCompany':prevCompany}
+    return render(request, 'income-statement.html', context)
+
+
+
+def balanceSheet(request, pk):
+    user = request.user
+    game = simGame.objects.get(pk=pk)
+    company = Company.objects.filter(simgame=game, owner=user, month=game.month)[0]
+    candidates = Company.objects.filter(simgame=game)
+    flag = request.user not in [candidate.owner for candidate in candidates]
+    timestamp = monthToString(game.month - 1)
+    context = {'user':user, 'game':game, 'company':company, 'timestamp':timestamp}
+    return render(request, 'balance-sheet.html', context)
+
+
 # Create your views here.
 def monthToString(month):
     months = ['December', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']

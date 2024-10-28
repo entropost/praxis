@@ -183,14 +183,13 @@
 </div> -->
 
 {% if request.user != game.host %}
-<div>Simulate</div>
 
 <div>
     <form method="POST" action="">
         {% csrf_token %}
         <h3>Simulate this month</h3>
 
-        <input type="submit" value="Simulate this month" />
+        <input class="btn btn-primary" type="submit" value="Simulate this month" />
     </form>
 </div>
 

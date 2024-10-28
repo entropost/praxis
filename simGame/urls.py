@@ -17,4 +17,6 @@ urlpatterns = [
     path("play/session/<int:pk>/decisions/supply", views.supplyDecisions, name='supply-decisions'),
     path("play/session/<int:pk>/decisions/adminFin", views.adminFinDecisions, name='adminfin-decisions'),
     path("play/session/<int:pk>/decisions/hr", views.HrDecisions, name = 'hr-decisions'),
+    path("play/session/<int:pk>/accountant/balance-sheet", views.balanceSheet, name = 'balance-sheet'),
+    path('play?session/<int:pk>/accountant/income-statement', views.incomeStatement, name='income-statement')
 ]
